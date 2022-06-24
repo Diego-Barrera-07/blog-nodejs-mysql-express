@@ -73,3 +73,34 @@ input{
     background-color:  #7366fa ;
     cursor: pointer;
 }
+
+
+/* Errores */
+
+
+.containerErrores{
+    width: 20%;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 15vh;
+    margin-left:2.3%;
+}
+.errores{
+    background-color: rgb(33, 129, 255);
+    padding: 5px;
+    font-size: 14px;
+    color: white;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    margin-bottom: 10px;
+}
+.errores p{
+    margin-left: 10%;
+    margin-right: 10%;
+}
