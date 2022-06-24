@@ -65,7 +65,7 @@ controller.saveUser = ((req, res) => {
         // Send data 
         conn.query('INSERT INTO users set ?', data, (err, user) => {
             console.log('Enviadoooos')
-            res.redirect('/')
+            res.redirect('/signIn')
         })
     })
 })

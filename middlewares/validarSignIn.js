@@ -13,7 +13,7 @@ const validarDataUser = (req, res, next) => {
     console.log('Errores: ', validaciones)
 
     if (validaciones == []) {
-        return res.status(200).render('signIn', { validaciones: validaciones })
+        return res.status(200).render('signIn', { validaciones: validaciones, data: data })
     }
 
     req.getConnection((err, conn) => {
