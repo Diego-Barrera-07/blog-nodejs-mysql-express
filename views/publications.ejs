@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LostLetter</title>
+    <link rel="shortcut icon" href="/img/web.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/partials.css">
+    <link rel="stylesheet" href="css/publications.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <%- include("partials/line__gradient") %>
+        <%- include("partials/main") %>
+            <section class="container">     
+                <div class="news">
+                    <% if (dataPost || dataImg) { %>
+                        <% for(var i = 0; i < dataPost.length; i++) { %>
+                            <div class="post post1">
+                                    <a href="http://">
+                                    <img src="<%= dataImg[i]%>" alt="">
+                                    <h1><%= dataPost[i].title %></h1></h1>
+                                    <% if (dataPost[i].anonymity !== 1) { %>
+                                    <p class="autor"><%= dataPost[i].name + ' ' + dataPost[i].lastname %> </p>
+                                    <% } else { %>
+                                        <p class="autor">Anonimo</p>
+                                    <% } %> 
+                                </a>
+                            </div>
+                        <% } %>
+                    <% } %>                      
+                </div>
+
+            </section>
+            
+        <script src="js/scrollEfect.js"></script>
+</body>
+
+</html>

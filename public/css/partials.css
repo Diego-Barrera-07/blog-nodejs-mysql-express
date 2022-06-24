@@ -1,0 +1,136 @@
+/* ---- FONTS FAMILY ---- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Raleway:wght@100;400&family=Roboto:wght@100;300;500;700&display=swap');
+/* 
+font-family: 'Montserrat', sans-serif; 300
+font-family: 'Raleway', sans-serif; 100 - 400
+font-family: 'Roboto', sans-serif;  100 - 300 - 500 - 700 
+*/
+.line__gradient{ 
+    background-image: radial-gradient(circle at -16.45% 25.82%, #ff57d2 0, #ff4edb 12.5%, #f046e3 25%, #d63feb 37.5%, #b53cf2 50%, #8c3df9 62.5%, #4f40ff 75%, #0046ff 87.5%, #004bff 100%);
+    width: 100%;
+    height: 1.5vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    margin-bottom: 1.5vh;
+    z-index: 10;
+}
+body{
+    background-color: #1f1f1f;
+    font-family: 'Raleway', sans-serif;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 8vh;
+    background-color: #3b3b3b;
+    color:white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 1.5vh;
+    z-index: 5;
+}
+.titulo{
+    margin-left: 3%;
+    font-size: 24px;
+}
+.lista{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 3%;
+    gap: 20px;
+}
+.lista a{
+    font-size: 18px;
+}
+.lista p{
+    font-size: 18px;
+}
+.lista i{
+    font-size: 18px;
+}
+.lista p i{
+    margin-right: 5px;
+    font-size: 17px;
+}
+
+
+
+
+
+
+/* Loader ---- From uiverse.io by @gagan-gv */
+.loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #1f1f1f;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+.loader.off{
+    display: none;
+}
+.spinner {
+    height: 50px;
+    width: max-content;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: monospace;
+    letter-spacing: 1em;
+    color: #f5f5f5;
+    filter: drop-shadow(0 0 10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+   
+   .spinner span {
+    animation: loading6454 1.75s ease infinite;
+   }
+   
+   .spinner span:nth-child(2) {
+    animation-delay: 0.25s;
+   }
+   
+   .spinner span:nth-child(3) {
+    animation-delay: 0.5s;
+   }
+   
+   .spinner span:nth-child(4) {
+    animation-delay: 0.75s;
+   }
+   
+   .spinner span:nth-child(5) {
+    animation-delay: 1s;
+   }
+   
+   .spinner span:nth-child(6) {
+    animation-delay: 1.25s;
+   }
+   
+   .spinner span:nth-child(7) {
+    animation-delay: 1.5s;
+   }
+   
+   @keyframes loading6454 {
+    0%, 100% {
+     transform: translateY(0);
+    }
+   
+    50% {
+     transform: translateY(-10px);
+    }
+   }

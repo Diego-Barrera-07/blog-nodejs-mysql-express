@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="css/partials.css">
+    <link rel="stylesheet" href="css/signUp.css">
+    <link rel="shortcut icon" href="/img/web.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <%- include("partials/loader") %>
+        <%- include("partials/line__gradient") %>
+            <a href="/">
+                <p class="backIcon"><i class="fa-solid fa-angle-left"></i><span>Volver</span></p>
+            </a>
+            <% if (typeof validaciones !='undefined' ) { %>
+                <div class="containerErrores">
+                    <% validaciones.forEach(error=> { %>
+                        <div class="errores">
+                            <p class="">
+                                <%= error.msg %>
+                            </p>
+                        </div>
+                        <% }) %>
+                </div>
+                <% } %>
+
+                    <div class="container">
+                        <h1>Registrate</h1>
+                        <form action="" method="post">
+                            <label for="">Nombres</label>
+                            <input type="text" name="name" id="" placeholder="Escribe tu apodo o correo"
+                                value="<% if (typeof data != 'undefined') {%><%= data.name %> <%}%>">
+                            <label for="">Apellidos</label>
+                            <input type="text" name="lastname" id="" placeholder="Escribe tu apodo o correo"
+                                value="<% if (typeof data != 'undefined') {%><%= data.lastname %> <%}%>">
+                            <label for="">Apodo o nombre de usuario</label>
+                            <input type="text" name="nickname" id="" placeholder="Escribe tu apodo o correo"
+                                value="<% if (typeof data != 'undefined') {%><%= data.nickname %> <%}%>">
+                            <label for="">Correo electronico</label>
+                            <input type="text" name="email" id="" placeholder="Escribe tu apodo o correo">
+                            <label for="">Tu contraseña</label>
+                            <input type="password" name="pass" id="" placeholder="Tu contraseña">
+                            <input type="submit" value="Ingresar" class="btn">
+                        </form>
+                    </div>
+                    <script src="/js/loader.js"></script>
+</body>
+
+</html>
