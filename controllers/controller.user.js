@@ -15,22 +15,22 @@ controller.publications = ((req, res) => {
             if (err) {
                 res.status(400).send(err)
             }
-            // console.log('Datos de la db', publications)
+            console.log('Datos de la db', publications)
             const lil = [{
-                id: 1, 
+                id: 1,
                 edad: 10
             }, {
-                id: 2, 
+                id: 2,
                 edad: 11
             }, {
-                id: 3, 
+                id: 3,
                 edad: 12
             }]
             // lildos = lil.map(x => x.id + 1)
             // console.log(lildos)
 
             const dataImg = publications.map(publication => writeImg(publication.img))
-     
+
             // console.log(data)
             // console.log(publications)
             // res.send(publications)
@@ -47,7 +47,7 @@ controller.userAcess = (req, res) => {
     console.log('Todo bien')
 }
 
-controller.signUp =  ((req, res) => {
+controller.signUp = ((req, res) => {
     const idUser = isAuthenticated
     console.log(idUser)
 
@@ -103,7 +103,24 @@ controller.saveYourPost = ((req, res) => {
     res.send('Enviado')
 })
 
-
+controller.post = ((req, res) => {
+    const idPost = req.params.idPost
+    req.getConnection((err, conn) => {
+        conn.query('SELECT * FROM blog INNER JOIN users ON blog.author = users.id WHERE blog.id = ?', [idPost], (err, dataPost) => {
+            if (!dataPost[0]) {
+                console.log(err)
+                return res.status(404).send('No existe ese post')
+            }
+            
+            if (dataPost) {
+                console.log(dataPost[0])
+                const decodificadaImg = writeImg(dataPost[0].img)
+                res.render(`post.ejs`, { dataPost: dataPost, decodificadaImg: decodificadaImg })
+            }
+        })
+    })
+    // res.render('post.ejs')
+})
 
 
 module.exports = controller

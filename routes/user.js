@@ -38,6 +38,10 @@ router.post('/signUp', [
 router.get('/makeYourPost', controller.makeYourPost)
 router.post('/makeYourPost', fileUpload ,controller.saveYourPost)
 
+// Post
+router.get('/post/:idPost', controller.post)
+
+
 router.get('*', ((req, res, next) => {
     res.status(404).send('Page not found')
 }))

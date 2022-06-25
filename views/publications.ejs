@@ -20,9 +20,9 @@
             <section class="container">     
                 <div class="news">
                     <% if (dataPost || dataImg) { %>
-                        <% for(var i = 0; i < dataPost.length; i++) { %>
+                        <% for(let i = 0; i < dataPost.length; i++) { %>
                             <div class="post post1">
-                                    <a href="http://">
+                                    <a href="post/<%= dataPost[i].id %>">
                                     <img src="<%= dataImg[i]%>" alt="">
                                     <h1><%= dataPost[i].title %></h1></h1>
                                     <% if (dataPost[i].anonymity !== 1) { %>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sing In</title>
+    <link rel="stylesheet" href="/css/post.css">
+    <link rel="stylesheet" href="/css/partials.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <%- include("partials/line__gradient") %>
+    <%- include("partials/main") %>
+        <img src="<%= decodificadaImg  %>" class="fondo" alt="Imagen de fondo">
+        <p class="titulo__contenido"><%= dataPost[0].title %></p>
+        <p class="autor"><%= dataPost[0].name + ' ' + dataPost[0].lastname %></p>
+        <p class="texto__contenido">
+            <%= dataPost[0].content  %> 
+        </p>
+
+        <!-- <div class="espacio"></div> -->
+
+
+        <script src="/js/scrollAnimation.js"></script>
+</body>
+
+</html>
+
+
+<!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec ullamcorper ipsum. Quisque sit amet
+eleifend mauris. Maecenas faucibus sapien sapien, vitae iaculis dolor consectetur a. Duis tempus, mi at
+accumsan fermentum, turpis urna consequat ligula, in tincidunt est quam a quam. Etiam eu quam risus. Nulla
+et venenatis ex, id scelerisque diam. Curabitur quis eros et mauris sagittis lacinia quis id velit.
+
+Curabitur sagittis, metus non dignissim imperdiet, nisl mauris eleifend ante, eu blandit ligula mi quis
+lacus. Curabitur diam erat, laoreet ac semper euismod, sodales sed urna. Praesent ornare augue mi, et tempus
+sapien hendrerit et. Integer vehicula urna at gravida blandit. Integer nisl ex, mattis non nisl eget, auctor
+condimentum risus. Phasellus feugiat sodales tellus, quis ultrices leo imperdiet quis. Duis mattis nisl et
+auctor sagittis. Phasellus tincidunt iaculis urna ac viverra. Nulla maximus velit massa, id lacinia justo
+vulputate et. Ut ullamcorper lacus vitae lacus faucibus molestie. Vestibulum a nisi tempor, luctus leo
+bibendum, efficitur tellus. Pellentesque sit amet consequat lorem.
+
+Donec eleifend, lectus ut luctus tempor, odio ante vehicula magna, sit amet lacinia mi magna sagittis ex.
+Aliquam ac dolor odio. Nunc nec erat ullamcorper, cursus quam porttitor, malesuada massa. Nullam laoreet
+sodales ante elementum bibendum. Donec ac metus sit amet ex auctor pulvinar in in tellus. Nunc rhoncus ante
+id metus porttitor, vitae laoreet ex fringilla. Nunc non dolor mollis, finibus turpis molestie, viverra
+quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultricies mattis massa, in semper leo
+consectetur vitae. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+himenaeos. Quisque quis pellentesque purus, in pulvinar purus. Etiam blandit urna quis orci facilisis
+varius. Phasellus condimentum quis tortor ut pharetra. Suspendisse egestas ex ac felis tincidunt, ut
+hendrerit nulla elementum.
+
+Pellentesque aliquet mi non lectus suscipit pellentesque. Praesent sit amet luctus nisl. Aliquam urna ante,
+commodo elementum lobortis in, aliquet non ligula. Ut in leo vestibulum, vestibulum risus non, interdum
+eros. Morbi a consectetur mauris, porta faucibus orci. Sed egestas felis congue augue molestie laoreet.
+Fusce sit amet placerat ex, at congue enim. Morbi venenatis, ante sit amet mattis vestibulum, lorem lorem
+suscipit justo, quis varius eros dolor vitae nisi. Morbi mattis nisi ut maximus maximus. In quis consequat
+quam. Morbi vitae quam tempor velit convallis sollicitudin bibendum eu tellus. Nam lobortis aliquam felis
+ullamcorper sagittis. Duis urna sem, congue et commodo vitae, pretium vel diam. Aliquam erat volutpat. Nam
+vitae tortor vitae erat posuere suscipit vitae sit amet neque. Sed bibendum elementum massa, vel pulvinar
+leo convallis eget.
+
+Quisque congue turpis vitae eros porta, eu feugiat ante semper. Sed eu ullamcorper urna, convallis suscipit
+risus. Aliquam erat volutpat. Vivamus quis dolor at nulla sagittis convallis. Morbi vel purus congue ligula
+maximus tincidunt. In dignissim quam quis ultrices venenatis. Donec quis vestibulum lorem. Donec non ante
+molestie, congue libero id, lacinia lorem. Phasellus varius interdum eros in cursus. Nullam nec vehicula
+tellus.
+
+Praesent scelerisque, purus ut ultrices tempor, velit nisi placerat augue, id vestibulum libero est id dui.
+Donec molestie lacinia nisi, sit amet tincidunt tortor lacinia nec. Phasellus viverra tempus augue eget
+sagittis. In cursus urna ex, a consectetur velit rhoncus sed. Fusce tempus turpis scelerisque sem vehicula,
+id suscipit erat interdum. Phasellus suscipit a tortor vitae iaculis. Maecenas mauris dolor, accumsan et
+sapien quis, accumsan dignissim ante.
+
+Cras vel cursus massa. Pellentesque lobortis justo euismod, facilisis quam quis, semper orci. Aliquam
+sollicitudin vestibulum turpis sit amet porta. Etiam auctor turpis eget aliquet semper. Donec id enim nec
+urna finibus varius. Nulla varius accumsan ornare. Duis at sagittis ex. Duis vitae euismod est. Vestibulum
+egestas nunc a nulla iaculis, a pharetra enim mollis. Nulla facilisi. Proin volutpat ex eu tellus pretium
+sodales. Donec convallis nisl vel nunc dapibus finibus. Pellentesque habitant morbi tristique senectus et
+netus et malesuada fames ac turpis egestas. Ut quis purus vitae justo sagittis placerat. Vivamus dignissim,
+libero non commodo faucibus, turpis purus suscipit turpis, eget posuere urna nisi ac est. Duis luctus tortor
+at dictum blandit. -->
