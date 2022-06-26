@@ -11,29 +11,14 @@ controller.index = ((req, res) => {
 })
 controller.publications = ((req, res) => {
     req.getConnection((err, conn) => {
-        conn.query('SELECT * FROM blog INNER JOIN users ON blog.author = users.id', (err, publications) => {
+        conn.query('SELECT * FROM users INNER JOIN blog ON blog.author = users.id', (err, publications) => {
             if (err) {
                 res.status(400).send(err)
             }
-            console.log('Datos de la db', publications)
-            const lil = [{
-                id: 1,
-                edad: 10
-            }, {
-                id: 2,
-                edad: 11
-            }, {
-                id: 3,
-                edad: 12
-            }]
-            // lildos = lil.map(x => x.id + 1)
-            // console.log(lildos)
-
+            // console.log('Datos de la db', publications)
+            publications = publications.reverse()
             const dataImg = publications.map(publication => writeImg(publication.img))
 
-            // console.log(data)
-            // console.log(publications)
-            // res.send(publications)
             res.render('publications', { dataPost: publications, dataImg: dataImg })
         })
     })
@@ -100,7 +85,7 @@ controller.saveYourPost = ((req, res) => {
         })
     })
 
-    res.send('Enviado')
+    res.status(200).redirect('/publications')
 })
 
 controller.post = ((req, res) => {
@@ -122,5 +107,15 @@ controller.post = ((req, res) => {
     // res.render('post.ejs')
 })
 
+
+controller.settings= ((req, res) => {
+    res.render('settings.ejs')
+})
+
+
+controller.closeSession = ((req, res) => {
+    res.clearCookie('jwt')
+    res.status(200).redirect('/')
+})
 
 module.exports = controller

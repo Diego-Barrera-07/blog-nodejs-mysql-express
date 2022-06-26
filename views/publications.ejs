@@ -23,7 +23,7 @@
                         <% for(let i = 0; i < dataPost.length; i++) { %>
                             <div class="post post1">
                                     <a href="post/<%= dataPost[i].id %>">
-                                    <img src="<%= dataImg[i]%>" alt="">
+                                    <img loading="lazy" src="<%= dataImg[i]%>" alt="">
                                     <h1><%= dataPost[i].title %></h1></h1>
                                     <% if (dataPost[i].anonymity !== 1) { %>
                                     <p class="autor"><%= dataPost[i].name + ' ' + dataPost[i].lastname %> </p>
@@ -37,7 +37,7 @@
                 </div>
 
             </section>
-            
+        <script defer src="js/main.js"></script>
         <script src="js/scrollEfect.js"></script>
 </body>
 

@@ -9,8 +9,8 @@ const fileUpload = require('../helpers/multer')
 
 
 
-router.get('/', isAuthenticated, controller.index)
-router.get('/publications', controller.publications)
+router.get('/', controller.index)
+router.get('/publications', isAuthenticated, controller.publications)
 
 
 // signIn page
@@ -35,12 +35,18 @@ router.post('/signUp', [
 
 
 // Make your post page
-router.get('/makeYourPost', controller.makeYourPost)
-router.post('/makeYourPost', fileUpload ,controller.saveYourPost)
+router.get('/makeYourPost', isAuthenticated, controller.makeYourPost)
+router.post('/makeYourPost', fileUpload, controller.saveYourPost)
 
 // Post
-router.get('/post/:idPost', controller.post)
+router.get('/post/:idPost', isAuthenticated, controller.post)
 
+
+// Settings user
+
+router.get('/settings', isAuthenticated, controller.settings)
+
+router.get('/closeSession', isAuthenticated, controller.closeSession)
 
 router.get('*', ((req, res, next) => {
     res.status(404).send('Page not found')

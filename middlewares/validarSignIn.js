@@ -39,6 +39,7 @@ const validarDataUser = (req, res, next) => {
             }
 
             const passwordValidation = bcryptjs.compareSync(pass, user[0].pass)
+            
             if (!passwordValidation) {
                 validaciones.push({
                     msg: 'La contraseña es incorrecta',
@@ -58,7 +59,7 @@ const validarDataUser = (req, res, next) => {
                     httpOnly: true
                 }
                 res.cookie('jwt', token, cookiesOption)
-                res.redirect('/publications')
+                res.status(200).redirect('/publications')
             } catch (error) {
                 console.log('Hay un error al crear el token')
             }

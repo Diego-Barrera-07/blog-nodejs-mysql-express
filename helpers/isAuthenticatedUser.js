@@ -25,9 +25,14 @@ const isAuthenticated = async (req, res, next) => {
                         const id = results[0].id
                         console.log(id)
                         next()
-                        return id
+                        // return id
                         // return res.status(200).redirect('/publications')
                     }
+
+                    if (!results[0]) {
+                        return res.status(200).redirect('/signIn')
+                    }
+
                     if (err) {
                         console.log('Hay un error: ', err)
                     }
@@ -41,9 +46,7 @@ const isAuthenticated = async (req, res, next) => {
         }
 
     } else {
-        console.log('No hay ningun token')
-        return next()
-        // res.redirect('/publications')
+        return res.status(403).redirect('/signIn')
     }
 }
 
