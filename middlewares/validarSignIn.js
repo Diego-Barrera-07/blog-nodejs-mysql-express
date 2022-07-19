@@ -51,7 +51,7 @@ const validarDataUser = (req, res, next) => {
 
             // Generar token - jwt
             try {
-                const token = generatorJwt(data)
+                const token = generatorJwt(user[0].nickname)
                 console.log('Token: ', token)
 
                 const cookiesOption = {

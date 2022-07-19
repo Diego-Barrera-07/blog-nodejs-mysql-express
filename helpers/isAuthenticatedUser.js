@@ -10,23 +10,22 @@ const isAuthenticated = async (req, res, next) => {
     if (req.cookies.jwt) {
 
         try {
-            const decodificada = await promisify(jwt.verify)(req.cookies.jwt, process.env.SECRETPRIVATEKEY)
-            console.log('Data de la cookie: ', decodificada.data)
+            const decodificada = await promisify(jwt.verify)(req.cookies.jwt, process.env.SECRETPRIVATEKEY, (err) => {
+                if (err) {
+                    console.log('Este es el error:', err)
+                    return res.status(200).redirect('/signIn')
+                }
+            })
+            // console.log('Data de la cookie: ', decodificada.data)
 
-            const nickname = decodificada.data.nickname
-            const idUser = decodificada.data.id
-            console.log('Nickname desde JWT: ', nickname)
+            const nickname = decodificada.data
+            // console.log('Nickname desde JWT: ', nickname)
 
             req.getConnection((err, conn) => {
                 conn.query('SELECT * FROM users WHERE email = ? OR nickname = ?', [nickname, nickname], (err, results) => {
-                    console.log('resultado: ', results[0])
+                    // console.log('resultado: ', results[0])
                     if (results[0]) {
-                        console.log('Son datos reales')
-                        const id = results[0].id
-                        console.log(id)
                         next()
-                        // return id
-                        // return res.status(200).redirect('/publications')
                     }
 
                     if (!results[0]) {
@@ -35,18 +34,20 @@ const isAuthenticated = async (req, res, next) => {
 
                     if (err) {
                         console.log('Hay un error: ', err)
+                        return res.status(200).redirect('/signIn')
                     }
                 })
             })
 
 
         } catch (error) {
-            console.log('No se pudo autenticar - cath')
-            return next()
+            console.log('No se pudo autenticar usuario - cath')
+            return res.status(200).redirect('/signIn')
         }
 
     } else {
-        return res.status(403).redirect('/signIn')
+        console.log('No hay token')
+        return res.status(200).redirect('/signIn')
     }
 }
 

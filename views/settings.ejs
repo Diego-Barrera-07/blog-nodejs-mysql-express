@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings user</title>
+    <title>Settings | User</title>
     <link rel="stylesheet" href="css/partials.css">
     <link rel="stylesheet" href="css/signUp.css">
     <link rel="shortcut icon" href="/img/web.png" type="image/x-icon">
@@ -37,15 +37,16 @@
                         <form action="" method="post">
                             <label for="">Nombres</label>
                             <input type="text" name="name" id="" placeholder="Escribe tu apodo o correo"
-                                value="<% if (typeof data != 'undefined') {%><%= data.name %> <%}%>">
+                                value="<% if (typeof dataUser[0] != 'undefined') {%><%= dataUser[0].name %> <%}%>">
                             <label for="">Apellidos</label>
                             <input type="text" name="lastname" id="" placeholder="Escribe tu apodo o correo"
-                                value="<% if (typeof data != 'undefined') {%><%= data.lastname %> <%}%>">
+                                value="<% if (typeof dataUser[0] != 'undefined') {%><%= dataUser[0].lastname %> <%}%>">
                             <label for="">Apodo o nombre de usuario</label>
                             <input type="text" name="nickname" id="" placeholder="Escribe tu apodo o correo"
-                                value="<% if (typeof data != 'undefined') {%><%= data.nickname %> <%}%>">
+                                value="<% if (typeof dataUser[0] != 'undefined') {%><%= dataUser[0].nickname %> <%}%>">
                             <label for="">Correo electronico</label>
-                            <input type="text" name="email" id="" placeholder="Escribe tu apodo o correo">
+                            <input type="text" name="email" id="" placeholder="Escribe tu apodo o correo"
+                            value="<% if (typeof dataUser[0] != 'undefined') {%><%= dataUser[0].email %> <%}%>">
                             <label for="">Tu contraseña</label>
                             <input type="password" name="pass" id="" placeholder="Tu contraseña">
                             <input type="submit" value="Guardar cambios" class="btn">

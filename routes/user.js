@@ -5,6 +5,7 @@ const { check } = require('express-validator')
 const isAuthenticated = require('../helpers/isAuthenticatedUser')
 const validarDataUser = require('../middlewares/validarSignIn')
 const validarCampos = require('../middlewares/validarSignUp')
+const validatorData = require('../middlewares/getErrors')
 const fileUpload = require('../helpers/multer')
 
 
@@ -43,9 +44,18 @@ router.get('/post/:idPost', isAuthenticated, controller.post)
 
 
 // Settings user
-
 router.get('/settings', isAuthenticated, controller.settings)
 
+router.post('/settings', [
+    check('name', 'Ingresa correctamente tu nombre, por favor').isLength({ min: 3 }).trim().escape(),
+    check('lastname', 'Ingresa correctamente tu apellido, por favor').isLength({ min: 3 }).trim().escape(),
+    check('nickname', 'Ingresa correctamente tu apodo, por favor').isLength({ min: 6 }).trim().escape(),
+    check('pass', 'Ingresa correctamente tu contraseña, por favor con minimo 6 letras').isLength({ min: 6 }).trim().escape(),
+    validatorData
+], controller.saveSettings)
+
+
+// Close session
 router.get('/closeSession', isAuthenticated, controller.closeSession)
 
 router.get('*', ((req, res, next) => {
