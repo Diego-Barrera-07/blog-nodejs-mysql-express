@@ -1,6 +1,4 @@
 const bcryptjs = require('bcryptjs')
-const isAuthenticated = require('../helpers/isAuthenticatedUser')
-const decodeData = require('../helpers/decodeToken')
 const jwt = require('jsonwebtoken')
 const { promisify } = require('util')
 
@@ -26,7 +24,7 @@ controller.publications = (req, res) => {
     req.getConnection((err, conn) => {
         conn.query('SELECT * FROM users INNER JOIN blog ON blog.author = users.id', (err, publications) => {
             if (err) {
-                return   res.status(400).send('This is a error: ', err)
+                return res.status(400).send('This is a error: ', err)
             }
             publications = publications.reverse()
             const dataImg = publications.map(publication => writeImg(publication.img))
@@ -80,41 +78,52 @@ controller.saveUser = ((req, res) => {
 
 
 controller.makeYourPost = async (req, res) => {
-    const author = promisify(jwt.verify)(req.cookies.jwt, process.env.SECRETPRIVATEKEY)
-    console.log(author)
-    // console.log(decodeData())
     res.render('makeYourPost')
 }
 
 
-controller.saveYourPost = ((req, res) => {
+controller.saveYourPost = (req, res) => {
     const data = req.body
 
     const title = data.title
 
-    const author = decodeData()
-
-    let anonymity = true
-    if (data.anonymity !== 'true') {
-        anonymity = false
+    const authorJwt = jwt.verify(req.cookies.jwt, process.env.SECRETPRIVATEKEY)
+    if (!authorJwt.data) {
+        return console.log('Hay un error')
     }
-    const content = data.content
-
-    console.log('Recibido: ', title, anonymity, content)
-
-
-    const imgName = req.file.filename
-    const file = findImg(imgName)
-
-
+    const authorDecode = authorJwt.data
+  
     req.getConnection((err, conn) => {
-        conn.query('INSERT INTO blog set ?', [{ img: file, title, author, anonymity, content }], (err, go) => {
-            if (err) { console.error(err) } else { console.log('Todo bien') }
+        conn.query('SELECT * FROM users WHERE nickname = ?', [authorDecode], (err, userData) => {
+            if (err) {
+                return res.status(400).send('This is a error: ', err)
+            }
+           
+            const author = userData[0].id
+
+            let anonymity = true
+
+            if (data.anonymity !== 'true') {
+                anonymity = false
+            }
+
+            const content = data.content
+            const imgName = req.file.filename
+            const file = findImg(imgName)
+
+            // Send new post
+
+            conn.query('INSERT INTO blog set ?', [{ img: file, title, author, anonymity, content }], (err, go) => {
+                if (err) { console.error(err) } else { console.log('Todo bien') }
+            })
+
+
+            res.status(200).redirect('/publications')
+
         })
     })
 
-    res.status(200).redirect('/publications')
-})
+}
 
 controller.post = ((req, res) => {
     const idPost = req.params.idPost
@@ -186,7 +195,7 @@ controller.myPost = (req, res) => {
         conn.query('SELECT * FROM users INNER JOIN blog ON blog.author = users.id WHERE users.nickname = ?', [nickname], (err, dataPost) => {
             // console.log(err)
             console.log(dataPost)
-            res.render('myPost', {dataPost: dataPost})
+            res.render('myPost', { dataPost: dataPost })
 
         })
     })
@@ -196,12 +205,12 @@ controller.getEditPost = (req, res) => {
     const id = req.params.id
     req.getConnection((err, conn) => {
         conn.query('SELECT * FROM blog WHERE id = ?', [id], (err, blog) => {
-            if(err){
+            if (err) {
                 res.send('Hemos tenido un error, vuelve pronto o recarga la página')
                 return;
             }
             // console.log(blog)
-            res.render('editPost.ejs', { dataPost: blog})
+            res.render('editPost.ejs', { dataPost: blog })
         })
     })
 }
@@ -211,11 +220,11 @@ controller.saveEditPost = (req, res) => {
     console.log('Data enviada', data)
     const id = req.params.id
     console.log(id)
-    const {title, anonymity, content} = req.body
-    
+    const { title, anonymity, content } = req.body
+
     req.getConnection((err, conn) => {
         conn.query('UPDATE blog set title = ?, anonymity = ?, content = ? WHERE id = ?', [title, anonymity, content, id], (err, blog) => {
-            if(err){
+            if (err) {
                 res.send('Hemos tenido un error, vuelve pronto o recarga la página')
                 return;
             }
