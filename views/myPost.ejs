@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My post</title>
+    <link rel="stylesheet" href="css/partials.css">
+    <link rel="stylesheet" href="css/myPost.css">
+    <link rel="shortcut icon" href="/img/web.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <%- include("partials/loader") %>
+        <%- include("partials/line__gradient") %>
+            <%- include("partials/main") %>
+
+                <h1>Mis publicaciones</h1>
+                <div class="table">
+                    <table>
+                        <tr class="header">
+                            <th>Imagen</th>
+                            <th>Titulo</th>
+                        </tr>
+                        <% if(dataPost){ %>
+                            <% for(let i=0;i<dataPost.length; i++){%>
+                                <tr>
+                                    <td><img loading="lazy" src="img/blue.jpg" alt=""></td>
+                                    <td><%= dataPost[i].title %></td>
+                                    <td>
+                                        <a href="editPost/<%= dataPost[i].id %>">
+                                            <button>
+                                                Editar
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="google.com">
+                                            <button>
+                                                Eliminar
+                                            </button>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    </table>
+                </div>
+
+                <script src="/js/loader.js"></script>
+                <script defer src="js/main.js"></script>
+</body>
+
+</html>

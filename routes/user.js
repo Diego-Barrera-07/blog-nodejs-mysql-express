@@ -15,7 +15,7 @@ router.get('/publications', isAuthenticated, controller.publications)
 
 
 // signIn page
-router.get('/signIn', controller.signIn)
+router.get('/signIn' ,controller.signIn)
 router.post('/signIn', [
     check('nickname', 'Ingresa un apodo o email valido').isLength({ min: 3 }).trim().escape(),
     check('pass', 'Ingresa correctamente tu contraseña, por favor con minimo 6 letras').isLength({ min: 6 }).trim().escape(),
@@ -42,6 +42,9 @@ router.post('/makeYourPost', fileUpload, controller.saveYourPost)
 // Post
 router.get('/post/:idPost', isAuthenticated, controller.post)
 
+// My post
+router.get('/myPost', isAuthenticated, controller.myPost)
+
 
 // Settings user
 router.get('/settings', isAuthenticated, controller.settings)
@@ -53,6 +56,11 @@ router.post('/settings', [
     check('pass', 'Ingresa correctamente tu contraseña, por favor con minimo 6 letras').isLength({ min: 6 }).trim().escape(),
     validatorData
 ], controller.saveSettings)
+
+// Edit post
+
+router.get('/editPost/:id', controller.getEditPost)
+router.post('/editPost/:id', controller.saveEditPost)
 
 
 // Close session

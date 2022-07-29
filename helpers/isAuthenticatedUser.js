@@ -12,7 +12,7 @@ const isAuthenticated = async (req, res, next) => {
         try {
             const decodificada = await promisify(jwt.verify)(req.cookies.jwt, process.env.SECRETPRIVATEKEY, (err) => {
                 if (err) {
-                    console.log('Este es el error:', err)
+                    console.log('Este es el error en el Token:', err)
                     return res.status(200).redirect('/signIn')
                 }
             })

@@ -6,7 +6,7 @@ const { promisify } = require('util')
 
 require('dotenv').config()
 
-controller = []
+let controller = []
 
 const { findImg, writeImg } = require('../helpers/findImg')
 
@@ -21,21 +21,21 @@ controller.index = (req, res) => {
     }
     res.render('index')
 }
-controller.publications = ((req, res) => {
+
+controller.publications = (req, res) => {
     req.getConnection((err, conn) => {
         conn.query('SELECT * FROM users INNER JOIN blog ON blog.author = users.id', (err, publications) => {
             if (err) {
-                res.status(400).send('This is a error: ', err)
+                return   res.status(400).send('This is a error: ', err)
             }
-            // console.log('Datos de la db', publications)
             publications = publications.reverse()
             const dataImg = publications.map(publication => writeImg(publication.img))
 
             res.render('publications', { dataPost: publications, dataImg: dataImg })
         })
     })
+}
 
-})
 controller.signIn = (req, res) => {
     if (req.cookies.jwt) {
         const author = jwt.verify(req.cookies.jwt, process.env.SECRETPRIVATEKEY, (err, decode) => {
@@ -151,24 +151,85 @@ controller.settings = ((req, res) => {
 
 
 controller.saveSettings = (req, res) => {
+    // console.log(nickname)
     console.log('Datos recibidos desde el controller: ', req.body)
     const newData = req.body
+    const newName = req.body.name
+    const newLastName = req.body.lastname
+    const newNickname = req.body.nickname
+    // const author = jwt.verify(req.cookies.jwt, process.env.SECRETPRIVATEKEY)
+    // const nickname = author.data
+
     const email = newData.email
     console.log(email)
     req.getConnection((err, conn) => {
-        conn.query('UPDATE users set ? WHERE email = ?', [newData, email], (err, data) => {
-            if (err) {
-                return console.log(err)
-            }
-        })
+        conn.query('UPDATE users set name = ?, lastname = ?, nickname = ? WHERE email = ?',
+            [newName, newLastName, newNickname, email], (err, data) => {
+                if (err) {
+                    return console.log('hay un error:', err)
+                } else {
+                    console.log(data)
+                    // res.send(data)
+                    res.status(200).redirect('/publications')
+                }
+            })
     })
-    res.status(200).redirect('/publications')
 }
 
 
-controller.closeSession = ((req, res) => {
+controller.myPost = (req, res) => {
+    const author = jwt.verify(req.cookies.jwt, process.env.SECRETPRIVATEKEY)
+    console.log(author)
+    const nickname = author.data
+    console.log('Nikcname: ' + nickname)
+    req.getConnection((err, conn) => {
+        conn.query('SELECT * FROM users INNER JOIN blog ON blog.author = users.id WHERE users.nickname = ?', [nickname], (err, dataPost) => {
+            // console.log(err)
+            console.log(dataPost)
+            res.render('myPost', {dataPost: dataPost})
+
+        })
+    })
+}
+
+controller.getEditPost = (req, res) => {
+    const id = req.params.id
+    req.getConnection((err, conn) => {
+        conn.query('SELECT * FROM blog WHERE id = ?', [id], (err, blog) => {
+            if(err){
+                res.send('Hemos tenido un error, vuelve pronto o recarga la página')
+                return;
+            }
+            // console.log(blog)
+            res.render('editPost.ejs', { dataPost: blog})
+        })
+    })
+}
+
+controller.saveEditPost = (req, res) => {
+    const data = req.body
+    console.log('Data enviada', data)
+    const id = req.params.id
+    console.log(id)
+    const {title, anonymity, content} = req.body
+    
+    req.getConnection((err, conn) => {
+        conn.query('UPDATE blog set title = ?, anonymity = ?, content = ? WHERE id = ?', [title, anonymity, content, id], (err, blog) => {
+            if(err){
+                res.send('Hemos tenido un error, vuelve pronto o recarga la página')
+                return;
+            }
+            console.log(blog)
+            res.redirect('/myPost')
+        })
+    })
+}
+
+
+
+controller.closeSession = (req, res) => {
     res.clearCookie('jwt')
     res.status(200).redirect('/')
-})
+}
 
 module.exports = controller
